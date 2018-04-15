@@ -1,0 +1,20 @@
+{% extends 'index.html' %}
+{% block body %}
+    {% if session.user_id %}
+        <form action="{{ url_for('add_entry') }}" method="post" class ="add-entry">
+            <p>title</p>
+            <input type="text" name=title>
+            <textarea type="tex" name=text></textarea>
+            <input type="submit" value="share">
+        </form>
+    {% endif %}
+
+    <ul>
+        {% for entry in entries %}
+        <li>{{ entry.title }}</li>
+        <li>{{ entry.text|safe }}</li>
+        {% else %}
+        <h1>No Entries here</h1>
+        {% endfor %}
+    </ul>
+{% endblock %}

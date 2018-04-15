@@ -1,0 +1,10 @@
+{% extends 'index.html' %}
+{% block body %}
+
+    <div class="jumbotron">
+        <img src="../static/ComToken.png" alt="" class="top-icon">
+        <button type="button" class="btn btn-outline-success" id="signButton">
+            <a href="{{ url_for('login')}}" >Sign In</a>
+        </button>
+    </div>
+{% endblock %}

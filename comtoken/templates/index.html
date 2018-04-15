@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ComToken!!</title>
+    <link rel="stylesheet" href="{{ url_for('static',filename='style.css')}}">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+</head>
+<body>
+    <nav class="navbar nabvar-dark navbar-expand-lg">
+        <a class="navbar-brand" href="/entries"><img src="../static/ComToken.png" alt="" id="head-icon"></a>
+        <button class="navbar-toggler" id ="navIcon" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls ="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="fas fa-caret-down" id="dropmenu"></i>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarText">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a href="{{ url_for('show_entries') }}" class="menu">entries</a>
+                </li>
+            </ul>
+            <span class="navbar-text">
+                {% if session.user_id %}
+                   <p><a href="{{ url_for('logout') }}" class="menu">Log out</a></p>
+                   <p><a href="{{ url_for('user_list') }}" class="menu">users</a></p>
+                {% else %}
+                    <a href="{{ url_for('login')}}" class="menu">Log in</a>
+                {% endif %}
+            </span>
+        </div>
+    </nav>
+    <div class="jumbotron">
+        {% for message in get_flashed_messages() %}
+            <div class ="flash">{{ message }}</div>
+
+        {% endfor %}
+
+        {% block body %}{% endblock %}
+    </div>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+<script defer src="https://use.fontawesome.com/releases/v5.0.10/js/all.js" integrity="sha384-slN8GvtUJGnv6ca26v8EzVaR9DC58QEwsIk9q1QXdCU8Yu8ck/tL/5szYlBbqmS+" crossorigin="anonymous"></script>
+</body>
+</html>

@@ -1,0 +1,16 @@
+{% extends 'index.html' %}
+
+{% block body %}
+    <h2>{{ 'Edit User' if user else 'add User' }}</h2>
+
+    <form action="" method="post">
+        <p>Name:</p>
+        <input type="text" name="name" value="{{ user.name if user }}">
+        <p>Email:</p>
+        <input type="text" name=email value="{{ user.email if user }}">
+        <p>Password</p>
+        <input type="password" name=password value="">
+        <input type="submit"  value="{{ 'Save' if user else 'Create'}}">
+    </form>
+
+{% endblock %}
