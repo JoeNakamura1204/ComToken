@@ -2,9 +2,6 @@
 {% block body %}
     <h2>Sign in</h2>
 
-        {% for error in form.errors %}
-            <p class="error"><strong>Error</strong>{{ error }}</p>
-        {% endfor %}
         <img src="../static/ComToken.png" alt="" class="top-icon">
         <form action="{{ url_for('.login') }}" method="post">
         {{ form.hidden_tag() }}
@@ -16,5 +13,10 @@
                 <dd class="btn btn-outline-success">{{ form.submit }}
             </dl>
         </form>
+        <div>
+            {% for error in form.errors %}
+                <p class="error"><strong>Error</strong>{{ error }}</p>
+            {% endfor %}
+        </div>
 
 {% endblock %}

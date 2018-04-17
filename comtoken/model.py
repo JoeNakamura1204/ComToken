@@ -1,18 +1,7 @@
-from sqlalchemy.orm import synonym
+from sqlalchemy.orm import synonym,foreign
+from flask_sqlalchemy import SQLAlchemy
 from comtoken import db
 from werkzeug import check_password_hash, generate_password_hash
-
-class Connection(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
-    provider_id = db.Column(db.String(255))
-    provider_user_id = db.Column(db.String(255))
-    access_token = db.Column(db.String(255))
-    secret = db.Column(db.String(255))
-    display_name = db.Column(db.String(255))
-    profile_url = db.Column(db.String(512))
-    image_url = db.Column(db.String(512))
-    rank = db.Column(db.Integer)
 
 
 class Entry(db.Model):
@@ -25,13 +14,38 @@ class Entry(db.Model):
         return '<Entry id={id} title={title!r}>'.format(
                 id=self.id, title=self.title)
 
+class Gender(db.Model):
+    __tablename__ = 'gender'
+    id = db.Column(db.Integer, primary_key=True)
+    gender = db.Column(db.Text)
+
+    def __repr__(self):
+        return '<Gender id={id}>'.format(
+                id=self.id, gender=self.gender)
+
+class House(db.Model):
+    __tablename__ = 'house'
+    id = db.Column(db.Integer, primary_key=True)
+    address = db.Column(db.Text)
+
+    def __repr__(self):
+        return '<house id={id}>'.format(
+            id=self.id, address=self.address)
+
+
 class User(db.Model):
-    __tabalename__ = 'users'
+    __tabalename__ = 'user'
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100), default="", nullable=False)
     email = db.Column(db.String(100), unique=True, nullable=False)
-    _password = db.Column('password',db.String(100), nullable=False)
+    gender = db.Column(db.Integer)
+    house = db.Column(db.Integer)
+    belonging = db.Column(db.String(100))
+    hobby = db.Column(db.String(100))
+    profile_img = db.Column(db.String(100))
+    description =db.Column(db.String(300))
+    _password = db.Column('password',db.String(100))
 
     def _get_password(self):
         return self._password

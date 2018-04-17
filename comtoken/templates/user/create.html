@@ -1,0 +1,43 @@
+{% extends 'index.html' %}
+
+{% block body %}
+    <h2>Create New User</h2>
+
+    <form action="/createnew/" method="post">
+        <p>Name:</p>
+        <input type="text" name="name" placeholder="name">
+
+        <p>Email:</p>
+        <input type="text" name=email placeholder="email">
+
+        <p>Belongings:</p>
+        <input type="text" name="belonging" placeholder="ex.) ** University, **Company ">
+
+        <p>Gender:</p>
+         <select name="gender" id="gender">
+            <option value="1">Male</option>
+            <option value="2">Female</option>
+            <option value="3">Other</option>
+         </select>
+
+        <p>Hobby:</p>
+        <input type="text" name=hobby placeholder="ex.) movies, sports">
+
+        <p>house:</p>
+        <select name="house" id="house">
+            <option value="1">東松原</option>
+            <option value="2">松陰神社前</option>
+            <option value="3">梅ヶ丘</option>
+            <option value="4">新代田</option>
+            <option value="5">下鴨</option>
+        </select>
+
+        <p>About you</p>
+        <textarea name="description" placeholder="About you..."></textarea>
+
+        <p>Password</p>
+        <input type="password" name=password value="">
+        <input type="submit"  value="Create" class="btn btn-outline-success">
+    </form>
+
+{% endblock %}

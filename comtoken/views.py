@@ -1,8 +1,10 @@
-from comtoken.form import LoginForm
 from functools import wraps
-from flask import Flask,Blueprint,render_template,request,redirect,url_for,flash,abort,jsonify,session,g
-from comtoken import db,app
-from comtoken.model import Entry,User
+
+from flask import render_template, request, redirect, url_for, flash, abort, jsonify, session, g
+
+from comtoken import db, app
+from comtoken.form import LoginForm
+from comtoken.model import Entry, User
 
 
 def login_required(f):
@@ -39,9 +41,9 @@ def login():
         if authenticated:
             session['user_id']=user.id
             flash('You were logged in')
-            return redirect(url_for('show_entries'))
+            return redirect(url_for('user_detail',user_id=user.id))
         else:
-            flash('Invalid email or password')
+            flash('MailアドレスかPasswordが違います')
     return render_template('login.html', form=form)
 
 @app.route('/logout')
@@ -97,11 +99,39 @@ def user_create():
             name = request.form['name'],
             email = request.form['email'],
             password = request.form['password'],
+            belonging = request.form['belonging'],
+            hobby = request.form['hobby'],
+            gender = request.form['gender'],
+            house = request.form['house'],
+            description = request.form['description']
         )
         db.session.add(user)
         db.session.commit()
         return redirect(url_for('user_list'))
     return render_template('user/edit.html')
+
+@app.route('/signup')
+def signup():
+    return render_template('user/create.html')
+
+
+@app.route('/createnew/' ,methods=['GET','POST'])
+def create_newuser():
+    if request.method =='POST':
+        user = User(
+            name = request.form['name'],
+            email = request.form['email'],
+            password = request.form['password'],
+            belonging = request.form['belonging'],
+            hobby = request.form['hobby'],
+            gender = request.form['gender'],
+            house = request.form['house'],
+            description = request.form['description']
+        )
+        db.session.add(user)
+        db.session.commit()
+        return redirect(url_for('login'))
+    return render_template('top.html')
 
 @app.route('/user/<int:user_id>/delete/' ,methods=['DELETE'])
 def user_delete(user_id):
